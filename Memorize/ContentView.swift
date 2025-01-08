@@ -12,7 +12,7 @@ struct ContentView: View {
     
     var body: some View {
         HStack {
-            ForEach(0..<4, id: \.self) { index in
+            ForEach(emojis.indices, id: \.self) { index in
                 CardView(content: emojis[index])
             }
         }
