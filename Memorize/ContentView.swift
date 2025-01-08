@@ -15,13 +15,14 @@ struct ContentView: View {
     var body: some View {
         VStack{
             cards
+            Spacer()
             cardCountAdjusters
         }
         .padding()
     }
     
     var cards: some View {
-        HStack {
+        LazyVGrid(columns: [GridItem(), GridItem(), GridItem()]) {
             ForEach(0..<cardCount, id: \.self) { index in
                 CardView(content: emojis[index])
             }
@@ -40,22 +41,21 @@ struct ContentView: View {
         .font(.largeTitle)
     }
     
-    var cardAdder: some View {
+    func cardCountAdjuster(by offset: Int, symbol: String) -> some View {
         Button(action: {
-            cardCount += 1
+            cardCount += offset
         }, label: {
-            Image(systemName: "rectangle.stack.badge.plus.fill")
+            Image(systemName: symbol)
         })
+        .disabled(cardCount + offset < 1 || cardCount + offset > emojis.count)
+    }
+    
+    var cardAdder: some View {
+        cardCountAdjuster(by: 1, symbol: "rectangle.stack.badge.plus.fill")
     }
     
     var cardRemover: some View {
-        Button(action: {
-            if cardCount > 1 {
-                cardCount -= 1
-            }
-        }, label: {
-            Image(systemName: "rectangle.stack.badge.minus.fill")
-        })
+        cardCountAdjuster(by: -1, symbol: "rectangle.stack.badge.minus.fill")
     }
 }
 
