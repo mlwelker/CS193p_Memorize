@@ -25,6 +25,7 @@ struct ContentView: View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))]) {
             ForEach(0..<cardCount, id: \.self) { index in
                 CardView(content: emojis[index])
+                    .aspectRatio(2/3, contentMode: .fit)
             }
         }
         .foregroundStyle(.orange)
@@ -66,13 +67,13 @@ struct CardView: View {
     var body: some View {
         ZStack {
             let base: RoundedRectangle = RoundedRectangle(cornerRadius: 12)
-            if isFaceUp {
+            Group {
                 base.fill(.white)
                 base.strokeBorder(lineWidth: 2)
                 Text(content)
-            } else {
-                RoundedRectangle(cornerRadius: 12).fill()
             }
+            .opacity(isFaceUp ? 1 : 0)
+            base.fill().opacity(isFaceUp ? 0 : 1)
         }
         .onTapGesture {
             isFaceUp.toggle()
