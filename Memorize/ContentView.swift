@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    let emojis: Array<String> = ["👻", "🎃", "🕷️", "😈","💀","🕸️","🧙‍♀️","🙀", "👹", "😱", "☠️", "🍭"]
+    let halloweenEmojis: Array<String> = ["👻", "🎃", "🕷️", "😈","💀","🕸️","🧙‍♀️","🙀", "👹", "😱", "☠️", "🍭"]
+    let faceEmojis: Array<String> = ["🥳", "😱", "😵‍💫", "😈","💀","😎","😅","🙀", "👹", "😱", "😇", "😍"]
+    let vehicleEmojis: Array<String> = ["🚗", "🚙", "🚛", "🚞","✈️","⛵️","🚋","🚕", "🚓", "🏍️", "🛵", "🚲"]
     
-    @State var cardCount: Int = 4
+    @State var cardCount: Int = 12
+    @State var emojis: Array<String> = ["X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X"]
     
     var body: some View {
         VStack{
@@ -21,7 +24,7 @@ struct ContentView: View {
                 cards
             }
             Spacer()
-            cardCountAdjusters
+            cardThemeSelectors
         }
         .padding()
     }
@@ -34,6 +37,18 @@ struct ContentView: View {
             }
         }
         .foregroundStyle(.orange)
+    }
+    
+    var cardThemeSelectors: some View {
+        HStack {
+            Spacer()
+            Button(action: { emojis = halloweenEmojis }, label: { Text("Halloween") })
+            Spacer()
+            Button(action: { emojis = vehicleEmojis }, label: { Text("Vehicles") })
+            Spacer()
+            Button(action: { emojis = faceEmojis }, label: { Text("Faces") })
+            Spacer()
+        }
     }
     
     var cardCountAdjusters: some View {
@@ -76,6 +91,7 @@ struct CardView: View {
                 base.fill(.white)
                 base.strokeBorder(lineWidth: 2)
                 Text(content)
+                    .font(.largeTitle)
             }
             .opacity(isFaceUp ? 1 : 0)
             base.fill().opacity(isFaceUp ? 0 : 1)
