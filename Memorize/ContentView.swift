@@ -80,8 +80,9 @@ struct ContentView: View {
     }
     
     func doubleAndShuffle(array: Array<String>) -> Array<String> {
-        var arrayToDouble = array
-        arrayToDouble.append(contentsOf: array)
+        let randNumber = Int.random(in: 0..<array.count)
+        var arrayToDouble = array.shuffled()[..<randNumber]
+        arrayToDouble.append(contentsOf: arrayToDouble)
         return arrayToDouble.shuffled()
     }
 }
