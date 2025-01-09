@@ -49,11 +49,11 @@ struct ContentView: View {
     var cardThemeSelectors: some View {
         HStack {
             Spacer()
-            cardThemeSelectorButton(themeName: "Halloween", themeImage: "🎃", arrayToUse: halloweenEmojis)
+            cardThemeSelectorButton(themeName: "Halloween", themeImage: "theatermasks.circle.fill", arrayToUse: halloweenEmojis)
             Spacer()
-            cardThemeSelectorButton(themeName: "Vehicles", themeImage: "🚗" , arrayToUse: vehicleEmojis)
+            cardThemeSelectorButton(themeName: "Vehicles", themeImage: "car.circle.fill" , arrayToUse: vehicleEmojis)
             Spacer()
-            cardThemeSelectorButton(themeName: "Faces", themeImage: "😎", arrayToUse: faceEmojis)
+            cardThemeSelectorButton(themeName: "Faces", themeImage: "face.smiling.inverse", arrayToUse: faceEmojis)
             Spacer()
         }
     }
@@ -69,7 +69,8 @@ struct ContentView: View {
             }
         }, label: {
             VStack {
-                Text(themeImage)
+                Image(systemName: themeImage)
+                    .font(.title)
                 Text(themeName)
             }
         })
