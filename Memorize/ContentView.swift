@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    let halloweenEmojis: Array<String> = ["👻", "🎃", "🕷️", "😈","💀","🕸️","🧙‍♀️","🙀", "👹", "😱", "☠️", "🍭"]
-    let faceEmojis: Array<String> = ["🥳", "😱", "😵‍💫", "😈","💀","😎","😅","🙀", "👹", "😱", "😇", "😍"]
-    let vehicleEmojis: Array<String> = ["🚗", "🚙", "🚛", "🚞","✈️","⛵️","🚋","🚕", "🚓", "🏍️", "🛵", "🚲"]
+    let halloweenEmojis: Array<String> = ["👻", "🎃", "🕷️", "😈", "💀", "🕸️", "🧙‍♀️", "🙀", "👹", "😱", "☠️", "🍭"]
+    let faceEmojis: Array<String> = ["🥳", "😱", "😵‍💫", "😈", "😎", "😅", "🙀", "😱", "😇", "😍"]
+    let vehicleEmojis: Array<String> = ["🚗", "🚙", "🚛", "🚞","✈️","🚋","🚕", "🚓", "🏍️", "🛵", "🚲"]
     
     @State var cardCount: Int = 12
     @State var emojis: Array<String> = ["X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X"]
@@ -30,8 +30,10 @@ struct ContentView: View {
     }
     
     var cards: some View {
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))]) {
-            ForEach(0..<cardCount, id: \.self) { index in
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 70))]) {
+            ForEach(0..<emojis.count, id: \.self) { index in
+                CardView(content: emojis[index])
+                    .aspectRatio(2/3, contentMode: .fit)
                 CardView(content: emojis[index])
                     .aspectRatio(2/3, contentMode: .fit)
             }
