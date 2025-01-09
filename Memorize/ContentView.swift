@@ -8,23 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
-    let halloweenEmojis: Array<String> = ["👻", "🎃", "🕷️", "😈", "💀", "🕸️", "🧙‍♀️", "🙀", "👹", "😱", "☠️", "🍭"]
-    let faceEmojis: Array<String> = ["🥳", "😵‍💫", "😈", "😎", "😅", "🙀", "😱", "😇", "😍"]
-    let vehicleEmojis: Array<String> = ["🚗", "🚙", "🚛", "🚞","✈️","🚋","🚕", "🚓", "🏍️", "🛵", "🚲"]
+    let halloweenTheme: CardTheme = CardTheme(name: "Halloween", color: .orange, emojis: ["👻", "🎃", "🕷️", "😈", "💀", "🕸️", "🧙‍♀️", "🙀", "👹", "😱", "☠️", "🍭"], imageName: "theatermasks.circle.fill")
+    let faceTheme: CardTheme = CardTheme(name: "Faces", color: .green, emojis: ["🥳", "😵‍💫", "😈", "😎", "😅", "🙀", "😱", "😇", "😍"], imageName: "face.smiling.inverse")
+    let vehicleTheme: CardTheme = CardTheme(name: "Vehicles", color: .blue, emojis: ["🚗", "🚙", "🚛", "🚞","✈️","🚋","🚕", "🚓", "🏍️", "🛵", "🚲"], imageName: "car.circle.fill")
     
-    @State var cardCount: Int = 12
     @State var emojis: Array<String> = []
-    @State var activeTheme: String = ""
+    @State var activeThemeName: String = ""
+    @State var themeColor: Color = .gray
     
     var body: some View {
         VStack{
             Text("Memorize!")
                 .font(.largeTitle)
-                .foregroundStyle(.orange)
+                .foregroundStyle(themeColor)
             if emojis.isEmpty {
                 Spacer()
                 Text("↓ Select a theme ↓")
-                    .foregroundStyle(.orange)
+                    .foregroundStyle(themeColor)
             } else {
                 ScrollView {
                     cards
@@ -43,66 +43,40 @@ struct ContentView: View {
                     .aspectRatio(2/3, contentMode: .fit)
             }
         }
-        .foregroundStyle(.orange)
+        .foregroundStyle(themeColor)
     }
     
     var cardThemeSelectors: some View {
         HStack {
             Spacer()
-            cardThemeSelectorButton(themeName: "Halloween", themeImage: "theatermasks.circle.fill", arrayToUse: halloweenEmojis)
+            cardThemeSelectorButton(theme: halloweenTheme)
             Spacer()
-            cardThemeSelectorButton(themeName: "Vehicles", themeImage: "car.circle.fill" , arrayToUse: vehicleEmojis)
+            cardThemeSelectorButton(theme: vehicleTheme)
             Spacer()
-            cardThemeSelectorButton(themeName: "Faces", themeImage: "face.smiling.inverse", arrayToUse: faceEmojis)
+            cardThemeSelectorButton(theme: faceTheme)
             Spacer()
         }
     }
     
-    func cardThemeSelectorButton(themeName: String, themeImage: String, arrayToUse: Array<String>) -> some View {
+    func cardThemeSelectorButton(theme: CardTheme) -> some View {
         Button(action: {
-            if activeTheme != themeName {
-                emojis = doubleAndShuffle(array: arrayToUse)
-                activeTheme = themeName
+            if activeThemeName != theme.name {
+                emojis = doubleAndShuffle(array: theme.emojis)
+                activeThemeName = theme.name
+                themeColor = theme.color
             } else {
                 emojis = []
-                activeTheme = ""
+                activeThemeName = ""
             }
         }, label: {
             VStack {
-                Image(systemName: themeImage)
+                Image(systemName: theme.imageName)
                     .font(.title)
-                Text(themeName)
+                Text(theme.name)
                     .font(.footnote)
             }
         })
-    }
-    
-    var cardCountAdjusters: some View {
-        HStack {
-            cardRemover
-            Spacer()
-            cardAdder
-            
-        }
-        .imageScale(.large)
-        .font(.largeTitle)
-    }
-    
-    func cardCountAdjuster(by offset: Int, symbol: String) -> some View {
-        Button(action: {
-            cardCount += offset
-        }, label: {
-            Image(systemName: symbol)
-        })
-        .disabled(cardCount + offset < 1 || cardCount + offset > emojis.count)
-    }
-    
-    var cardAdder: some View {
-        cardCountAdjuster(by: 1, symbol: "rectangle.stack.badge.plus.fill")
-    }
-    
-    var cardRemover: some View {
-        cardCountAdjuster(by: -1, symbol: "rectangle.stack.badge.minus.fill")
+        .foregroundStyle(themeColor)
     }
     
     func doubleAndShuffle(array: Array<String>) -> Array<String> {
@@ -133,6 +107,13 @@ struct CardView: View {
             isFaceUp.toggle()
         }
     }
+}
+
+struct CardTheme {
+    let name: String
+    let color: Color
+    let emojis: Array<String>
+    let imageName: String
 }
 
 #Preview {
