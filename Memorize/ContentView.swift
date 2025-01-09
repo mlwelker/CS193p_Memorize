@@ -72,6 +72,7 @@ struct ContentView: View {
                 Image(systemName: themeImage)
                     .font(.title)
                 Text(themeName)
+                    .font(.footnote)
             }
         })
     }
