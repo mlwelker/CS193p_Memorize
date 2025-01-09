@@ -9,19 +9,26 @@ import SwiftUI
 
 struct ContentView: View {
     let halloweenEmojis: Array<String> = ["👻", "🎃", "🕷️", "😈", "💀", "🕸️", "🧙‍♀️", "🙀", "👹", "😱", "☠️", "🍭"]
-    let faceEmojis: Array<String> = ["🥳", "😱", "😵‍💫", "😈", "😎", "😅", "🙀", "😱", "😇", "😍"]
+    let faceEmojis: Array<String> = ["🥳", "😵‍💫", "😈", "😎", "😅", "🙀", "😱", "😇", "😍"]
     let vehicleEmojis: Array<String> = ["🚗", "🚙", "🚛", "🚞","✈️","🚋","🚕", "🚓", "🏍️", "🛵", "🚲"]
     
     @State var cardCount: Int = 12
-    @State var emojis: Array<String> = ["X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X", "X"]
+    @State var emojis: Array<String> = []
+    @State var activeTheme: String = ""
     
     var body: some View {
         VStack{
             Text("Memorize!")
                 .font(.largeTitle)
                 .foregroundStyle(.orange)
-            ScrollView {
-                cards
+            if emojis.isEmpty {
+                Spacer()
+                Text("↓ Select a theme ↓")
+                    .foregroundStyle(.orange)
+            } else {
+                ScrollView {
+                    cards
+                }
             }
             Spacer()
             cardThemeSelectors
@@ -34,8 +41,6 @@ struct ContentView: View {
             ForEach(0..<emojis.count, id: \.self) { index in
                 CardView(content: emojis[index])
                     .aspectRatio(2/3, contentMode: .fit)
-                CardView(content: emojis[index])
-                    .aspectRatio(2/3, contentMode: .fit)
             }
         }
         .foregroundStyle(.orange)
@@ -44,13 +49,25 @@ struct ContentView: View {
     var cardThemeSelectors: some View {
         HStack {
             Spacer()
-            Button(action: { emojis = halloweenEmojis }, label: { Text("Halloween") })
+            cardThemeSelectorButton(themeName: "Halloween", arrayToUse: halloweenEmojis)
             Spacer()
-            Button(action: { emojis = vehicleEmojis }, label: { Text("Vehicles") })
+            cardThemeSelectorButton(themeName: "Vehicles", arrayToUse: vehicleEmojis)
             Spacer()
-            Button(action: { emojis = faceEmojis }, label: { Text("Faces") })
+            cardThemeSelectorButton(themeName: "Faces", arrayToUse: faceEmojis)
             Spacer()
         }
+    }
+    
+    func cardThemeSelectorButton(themeName: String, arrayToUse: Array<String>) -> some View {
+        Button(action: {
+            if activeTheme != themeName {
+                emojis = doubleAndShuffle(array: arrayToUse)
+                activeTheme = themeName
+            } else {
+                emojis = []
+                activeTheme = ""
+            }
+        }, label: { Text(themeName) })
     }
     
     var cardCountAdjusters: some View {
@@ -79,6 +96,12 @@ struct ContentView: View {
     
     var cardRemover: some View {
         cardCountAdjuster(by: -1, symbol: "rectangle.stack.badge.minus.fill")
+    }
+    
+    func doubleAndShuffle(array: Array<String>) -> Array<String> {
+        var arrayToDouble = array
+        arrayToDouble.append(contentsOf: array)
+        return arrayToDouble.shuffled()
     }
 }
 
