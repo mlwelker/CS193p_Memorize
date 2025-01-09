@@ -49,16 +49,16 @@ struct ContentView: View {
     var cardThemeSelectors: some View {
         HStack {
             Spacer()
-            cardThemeSelectorButton(themeName: "Halloween", arrayToUse: halloweenEmojis)
+            cardThemeSelectorButton(themeName: "Halloween", themeImage: "🎃", arrayToUse: halloweenEmojis)
             Spacer()
-            cardThemeSelectorButton(themeName: "Vehicles", arrayToUse: vehicleEmojis)
+            cardThemeSelectorButton(themeName: "Vehicles", themeImage: "🚗" , arrayToUse: vehicleEmojis)
             Spacer()
-            cardThemeSelectorButton(themeName: "Faces", arrayToUse: faceEmojis)
+            cardThemeSelectorButton(themeName: "Faces", themeImage: "😎", arrayToUse: faceEmojis)
             Spacer()
         }
     }
     
-    func cardThemeSelectorButton(themeName: String, arrayToUse: Array<String>) -> some View {
+    func cardThemeSelectorButton(themeName: String, themeImage: String, arrayToUse: Array<String>) -> some View {
         Button(action: {
             if activeTheme != themeName {
                 emojis = doubleAndShuffle(array: arrayToUse)
@@ -67,7 +67,12 @@ struct ContentView: View {
                 emojis = []
                 activeTheme = ""
             }
-        }, label: { Text(themeName) })
+        }, label: {
+            VStack {
+                Text(themeImage)
+                Text(themeName)
+            }
+        })
     }
     
     var cardCountAdjusters: some View {
