@@ -6,11 +6,11 @@ import SwiftUI
 class EmojiMemoryGame {
     private static let emojis: [String] = ["👻", "🎃", "🕷️", "😈","💀","🕸️","🧙‍♀️","🙀", "👹", "😱", "☠️", "🍭"]
     
-    private var model = EmojiMemoryGame.createMemoryGame()
+    private var model = createMemoryGame()
     
     private static func createMemoryGame() -> MemoryGame<String> {
         MemoryGame(numberOfPairsOfCards: 4) { pairIndex in
-            return EmojiMemoryGame.emojis[pairIndex]
+            return emojis[pairIndex]
         }
     }
     
