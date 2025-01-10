@@ -1,22 +1,27 @@
-//
-//  MemorizeGame.swift
-//  Memorize
-//
-//  Created by Michael Welker on 1/9/25.
-//
+// MODEL
 
 import Foundation
 
 struct MemoryGame<CardContent> {
-    var cards: Array<Card>
+    private(set) var cards: Array<Card>
     
-    func choose(card: Card) {
+    init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
+        cards = []
+        // add numberOfPairsOfCards x 2 cards
+        for pairIndex in 0..<numberOfPairsOfCards {
+            let content: CardContent = cardContentFactory(pairIndex)
+            cards.append(Card(content: content))
+            cards.append(Card(content: content))
+        }
+    }
+    
+    func choose(_ card: Card) {
         
     }
     
     struct Card {
-        var isFaceUp: Bool
-        var isMatched: Bool
-        var content: CardContent
+        var isFaceUp: Bool = false
+        var isMatched: Bool = false
+        let content: CardContent
     }
 }
