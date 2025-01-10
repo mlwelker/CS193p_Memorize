@@ -19,6 +19,10 @@ struct MemoryGame<CardContent> {
         
     }
     
+    mutating func shuffle() {
+        cards.shuffle()
+    }
+    
     struct Card {
         var isFaceUp: Bool = true
         var isMatched: Bool = false
