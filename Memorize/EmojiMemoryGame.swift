@@ -7,12 +7,9 @@ func createCardContent(forPairAtIndex index: Int) -> String {
 }
 
 class EmojiMemoryGame {
-    private var model = MemoryGame(
-        numberOfPairsOfCards: 4,
-        cardContentFactory: { index in
-            return ["👻", "🎃", "🕷️", "😈","💀","🕸️","🧙‍♀️","🙀", "👹", "😱", "☠️", "🍭"][index]
-        }
-    )
+    private var model = MemoryGame(numberOfPairsOfCards: 4) { index in
+        return ["👻", "🎃", "🕷️", "😈","💀","🕸️","🧙‍♀️","🙀", "👹", "😱", "☠️", "🍭"][index]
+    }
     
     var cards: Array<MemoryGame<String>.Card> {
         return model.cards
