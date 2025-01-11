@@ -13,6 +13,7 @@ struct EmojiMemoryGameView: View {
             }
             Button("Shuffle") {
                 viewModel.shuffle()
+                print(viewModel.cards)
             }
         }
         .padding()
