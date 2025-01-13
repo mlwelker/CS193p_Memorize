@@ -10,7 +10,7 @@ class EmojiMemoryGame: ObservableObject {
         name: "Animals",
         color: .purple,
         emojis: ["🐈", "🐕", "🐿️", "🦔", "🦝", "🐖", "🐍", "🦎", "🐝", "🐅", "🐘"],
-        imageName: "placeholdertext.fill",
+        imageName: "lizard.circle.fill",
         numberOfPairs: 10
     )
     
@@ -18,7 +18,7 @@ class EmojiMemoryGame: ObservableObject {
         name: "Animal Faces",
         color: .red,
         emojis: ["🐸", "🐱", "🐶", "🐰", "🐹", "🐻", "🐨", "🦊", "🐷", "🐯"],
-        imageName: "placeholdertext.fill",
+        imageName: "faceid",
         numberOfPairs: 10
     )
     
@@ -100,7 +100,7 @@ class EmojiMemoryGame: ObservableObject {
     }
 }
 
-struct CardTheme {
+struct CardTheme: Equatable {
     let name: String
     let color: Color
     let emojis: Array<String>

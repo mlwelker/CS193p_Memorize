@@ -8,6 +8,12 @@ struct EmojiMemoryGameView: View {
     var body: some View {
         VStack {
             HStack {
+                Group {
+                    Image(systemName: viewModel.theme.imageName)
+                    Text(viewModel.theme.name)
+                }
+                .font(.title)
+                .animation(.default, value: viewModel.theme)
                 Spacer()
                 Button("New Game") {
                     viewModel.newGame()
