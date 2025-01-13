@@ -4,6 +4,7 @@ import Foundation
 
 struct MemoryGame<CardContent> where CardContent: Equatable {
     private(set) var cards: Array<Card>
+    private(set) var score: Int
     
     init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
         cards = []
@@ -13,6 +14,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
             cards.append(Card(content: content, id: "\(pairIndex + 1)a"))
             cards.append(Card(content: content, id: "\(pairIndex + 1)b"))
         }
+        score = 0
     }
     
     var indexOfTheOneAndOnlyFaceUpCard: Int? {
@@ -27,6 +29,9 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
                     if cards[chosenIndex].content == cards[potentialMatchIndex].content {
                         cards[chosenIndex].isMatched = true
                         cards[potentialMatchIndex].isMatched = true
+                        score += 2
+                    } else {
+                        score -= 1
                     }
                 } else {
                     indexOfTheOneAndOnlyFaceUpCard = chosenIndex

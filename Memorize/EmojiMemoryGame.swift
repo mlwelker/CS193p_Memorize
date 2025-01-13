@@ -77,6 +77,10 @@ class EmojiMemoryGame: ObservableObject {
     @Published private var model = createMemoryGame(themes[0])
     @Published private(set) var theme: CardTheme = themes[0]
     
+    var score: Int {
+        model.score
+    }
+    
     var cards: Array<MemoryGame<String>.Card> {
         return model.cards
     }

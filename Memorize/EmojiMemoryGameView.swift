@@ -8,25 +8,37 @@ struct EmojiMemoryGameView: View {
     var body: some View {
         VStack {
             HStack {
-                Group {
-                    Image(systemName: viewModel.theme.imageName)
-                    Text(viewModel.theme.name)
-                }
-                .font(.title)
-                .animation(.default, value: viewModel.theme)
+                Text("Score: \(viewModel.score)")
                 Spacer()
-                Button("New Game") {
-                    viewModel.newGame()
-                }
+                Text(viewModel.theme.name)
+                Image(systemName: viewModel.theme.imageName)
             }
+            .font(.title)
+            .animation(.default, value: viewModel.theme)
+            
             ScrollView {
                 cards
                     .animation(.default, value: viewModel.cards)
             }
-            Button("Shuffle") {
-                viewModel.shuffle()
-                print(viewModel.cards)
+            
+            HStack {
+                Button(action: { viewModel.shuffle() }) {
+                    VStack {
+                        Image(systemName: "shuffle.circle.fill")
+                            .font(.title)
+                        Text("Shuffle")
+                    }
+                }
+                Spacer()
+                Button(action: { viewModel.newGame() }) {
+                    VStack {
+                        Image(systemName: "plus.arrow.trianglehead.clockwise")
+                            .font(.title)
+                        Text("New Game")
+                    }
+                }
             }
+            .padding()
         }
         .padding()
         .foregroundStyle(viewModel.theme.color)
