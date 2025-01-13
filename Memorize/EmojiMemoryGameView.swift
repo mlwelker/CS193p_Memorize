@@ -23,6 +23,7 @@ struct EmojiMemoryGameView: View {
             }
         }
         .padding()
+        .foregroundStyle(viewModel.theme.color)
     }
     
     var cards: some View {
@@ -36,7 +37,7 @@ struct EmojiMemoryGameView: View {
                     }
             }
         }
-        .foregroundStyle(.orange)
+        .foregroundStyle(viewModel.theme.color)
     }
 }
 
