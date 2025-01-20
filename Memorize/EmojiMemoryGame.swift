@@ -20,6 +20,10 @@ class EmojiMemoryGame: ObservableObject {
     
     @Published private var model = createMemoryGame()
     
+    var color: Color {
+        return .orange
+    }
+    
     var cards: Array<Card> {
         return model.cards
     }

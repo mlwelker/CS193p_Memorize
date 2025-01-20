@@ -24,16 +24,16 @@ struct CardView: View {
     
     var body: some View {
         ZStack {
-            let base: RoundedRectangle = RoundedRectangle(cornerRadius: 12)
+            let base: RoundedRectangle = RoundedRectangle(cornerRadius: Constants.cornerRadius)
             Group {
                 base.fill(.white)
-                base.strokeBorder(lineWidth: 2)
+                base.strokeBorder(lineWidth: Constants.lineWidth)
                 Text(card.content)
-                    .font(.system(size: 200))
-                    .minimumScaleFactor(0.01)
+                    .font(.system(size: Constants.FontSize.largest))
+                    .minimumScaleFactor(Constants.FontSize.scaleFactor)
                     .multilineTextAlignment(.center)
                     .aspectRatio(1, contentMode: .fit)
-                    .padding(5)
+                    .padding(Constants.inset)
             }
             .opacity(card.isFaceUp ? 1 : 0)
             base.fill().opacity(card.isFaceUp ? 0 : 1)
