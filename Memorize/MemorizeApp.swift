@@ -1,9 +1,4 @@
-//
-//  MemorizeApp.swift
-//  Memorize
-//
-//  Created by Michael Welker on 1/8/25.
-//
+// MemorizeApp
 
 import SwiftUI
 
