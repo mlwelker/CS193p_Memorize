@@ -9,6 +9,8 @@ struct Pie: Shape {
     var clockwise: Bool = true
     
     func path(in rect: CGRect) -> Path {
+        let startAngle = self.startAngle - .degrees(90)
+        let endAngle = self.endAngle - .degrees(90)
         let center = CGPoint(x: rect.midX, y: rect.midY)
         let radius = min(rect.width, rect.height) / 2
         let start = CGPoint(
@@ -24,7 +26,7 @@ struct Pie: Shape {
             radius: radius,
             startAngle: startAngle,
             endAngle: endAngle,
-            clockwise: clockwise
+            clockwise: !clockwise
         )
         p.addLine(to: center)
         return p
@@ -32,5 +34,5 @@ struct Pie: Shape {
 }
 
 #Preview {
-    Pie(endAngle: .degrees(300)).stroke(style: .init(lineWidth: 1))
+    Pie(endAngle: .degrees(240)).stroke(style: .init(lineWidth: 1))
 }

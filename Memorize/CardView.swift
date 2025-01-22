@@ -33,6 +33,7 @@ struct CardView: View {
                 base.fill(.white)
                 base.strokeBorder(lineWidth: Constants.lineWidth)
                 Pie(endAngle: .degrees(240))
+                    .stroke(lineWidth: 6)
                     .opacity(Constants.Pie.opacity)
                     .overlay {
                         Text(card.content)
