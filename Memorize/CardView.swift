@@ -2,9 +2,9 @@
 
 import SwiftUI
 
+typealias Card = MemoryGame<String>.Card
+
 struct CardView: View {
-    typealias Card = MemoryGame<String>.Card
-    
     let card: Card
     
     init(_ card: Card) {
@@ -43,18 +43,15 @@ struct CardView: View {
 }
 
 #Preview {
-    // Why does this typealias make #Preview not work?
-//    typealias Card = MemoryGame<String>.Card
-//    typealias Card = CardView.Card
     VStack {
         HStack {
-            CardView(MemoryGame<String>.Card(isFaceUp: true, content: "X", id: "test-1"))
+            CardView(Card(isFaceUp: true, content: "X", id: "test-1"))
                 .aspectRatio(4/3, contentMode: .fit)
-            CardView(MemoryGame<String>.Card(content: "X", id: "test-1"))
+            CardView(Card(content: "X", id: "test-1"))
         }
         HStack {
-            CardView(MemoryGame<String>.Card(isFaceUp: true, isMatched: true, content: "This is a very long string that will wrap.", id: "test-1"))
-            CardView(MemoryGame<String>.Card(isMatched: true, content: "X", id: "test-1"))
+            CardView(Card(isFaceUp: true, isMatched: true, content: "This is a very long string that will wrap.", id: "test-1"))
+            CardView(Card(isMatched: true, content: "X", id: "test-1"))
         }
     }
         .padding()
